@@ -1,6 +1,14 @@
 from flask import Flask, render_template
-
+from config import Config
+from models import db, Usuario,Tarea
 app = Flask(__name__)
+#configuracion de la aplicacion flask
+app.config.from_object(Config)
+#inicializar base de datos
+db.init_app(app)
+#crear la base de datos si no existe
+with app.app_context():
+    db.create_all()
 
 @app.route('/')
 def home():
